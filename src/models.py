@@ -24,6 +24,7 @@ class Post(Base):
    
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
+    
 
 class Comment(Base):
     __tablename__ = 'comment'
@@ -31,6 +32,7 @@ class Comment(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
+    post_id = Column(Integer, ForeignKey('post.id'))
     
 class Media(Base):
     __tablename__ = 'media'
@@ -38,15 +40,16 @@ class Media(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     type = Column(String(250), nullable=False)
-    url =
+    url =  Column(String(250), nullable=False) 
+    post_id = Column(Integer, ForeignKey('post.id'))
 
 
-class Likes(Base):
-    __tablename__ = 'person'
+class Followers(Base):
+    __tablename__ = 'followers'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    user_id = Column(String(250), ForeignKey('user.id'))
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
